@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futbolred - La Pasión del Fútbol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary-red: #e11d48;
+            --primary-red-hover: #be123c;
+            --accent-green: #22c55e;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-main: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 8%;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(225, 29, 72, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--text-light);
+        }
+
+        .logo i {
+            color: var(--primary-red);
+            font-size: 2rem;
+            transform: rotate(-10deg);
+            transition: var(--transition-smooth);
+        }
+
+        .logo:hover i {
+            transform: rotate(0deg) scale(1.1);
+            color: var(--accent-green);
+        }
+
+        .logo span {
+            color: var(--primary-red);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition-smooth);
+            color: var(--text-light);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Menú Hamburguesa para Móviles */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 8% 5rem;
+            background: radial-gradient(circle at top, rgba(225, 29, 72, 0.15) 0%, rgba(15, 23, 42, 1) 70%);
+            text-align: center;
+        }
+
+        .hero-title-container {
+            max-width: 800px;
+            margin-bottom: 3.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            width: 340px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -10px rgba(225, 29, 72, 0.25);
+            border-color: rgba(225, 29, 72, 0.4);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.08);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(5px);
+            color: var(--accent-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .player-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: var(--text-light);
+        }
+
+        .player-role {
+            color: var(--primary-red);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .player-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .btn-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--primary-red);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-profile:hover {
+            background-color: var(--primary-red);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);
+        }
+
+        .btn-profile i {
+            transition: var(--transition-smooth);
+        }
+
+        .btn-profile:hover i {
+            transform: translateX(4px);
+        }
+
+        .footer {
+            background-color: #090d16;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4rem 8% 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .newsletter-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .newsletter-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .newsletter-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+            width: 100%;
+            gap: 0.5rem;
+        }
+
+        .subscribe-input {
+            flex-grow: 1;
+            padding: 0.8rem 1.2rem;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .subscribe-input:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.2);
+        }
+
+        .subscribe-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-red);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .subscribe-btn:hover {
+            background-color: var(--primary-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            color: var(--text-light);
+            font-size: 1.1rem;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-btn:hover {
+            background-color: var(--primary-red);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.5rem;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .cards-container {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 5%;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-dark);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                gap: 1.5rem;
+                border-bottom: 2px solid var(--primary-red);
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-futbol"></i>
+            FUTBOL<span>RED</span>
+        </a>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#jugadores" class="nav-link">Jugadores</a></li>
+                <li><a href="#galeria" class="nav-link">Galería</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-title-container">
+            <span class="badge"><i class="fa-solid fa-fire"></i> La Red Fútbol Profesional</span>
+            <h1 class="hero-title">Viví la Pasión del Fútbol en Un Solo Lugar</h1>
+            <p class="hero-subtitle">Descubre las ultimas novedades, perfiles exclusivos de jugadores de clase mundial y toda la cobertura del deporte más lindo del mundo.</p>
+        </div>
+
+        <div class="cards-container" id="jugadores">
+            <!-- Tarjeta 1 -->
+            <article class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80" alt="Jugador de fútbol ejecutando tiro" class="card-img" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Jugador+1'">
+                    <span class="card-tag">Destacado</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="player-name">Mateo Silva</h3>
+                    <span class="player-role">Delantero Centro • Real Madrid</span>
+                    <p class="player-desc">Goleador nato con una capacidad de definición letal dentro del área y potente remate con ambos perfiles.</p>
+                    <button class="btn-profile">
+                        Ver Perfil
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </article>
+
+            <!-- Tarjeta 2 -->
+            <article class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=600&q=80" alt="Jugador en la cancha" class="card-img" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Jugador+2'">
+                    <span class="card-tag">Capitán</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="player-name">Lucas Benítez</h3>
+                    <span class="player-role">Centrocampista • Manchester City</span>
+                    <p class="player-desc">Estratega del mediocampo con visión panorámica, gran precisión de pase corto y lectura de juego impecable.</p>
+                    <button class="btn-profile">
+                        Ver Perfil
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </article>
+
+            <!-- Tarjeta 3 -->
+            <article class="card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80" alt="Jugador entrenando" class="card-img" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Jugador+3'">
+                    <span class="card-tag">Promesa</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="player-name">Diego Morales</h3>
+                    <span class="player-role">Extremo Izquierdo • Paris SG</span>
+                    <p class="player-desc">Velocidad desbordante y habilidad en el uno contra uno, capaz de desarticular defensas cerradas con facilidad.</p>
+                    <button class="btn-profile">
+                        Ver Perfil
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer" id="contacto">
+        <div class="newsletter-box">
+            <h3 class="newsletter-title">Únete a la Comunidad Futbolred</h3>
+            <p class="newsletter-desc">Recibe las últimas transferencias, análisis de partidos y estadísticas exclusivas directo en tu correo.</p>
+            
+            <form class="subscribe-form" onsubmit="handleSubscribe(event)">
+                <input type="email" placeholder="Ingresa tu correo electrónico..." class="subscribe-input" required>
+                <button type="submit" class="subscribe-btn">
+                    <i class="fa-solid fa-paper-plane"></i> Suscribirse
+                </button>
+            </form>
+        </div>
+
+        <div class="footer-socials">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Futbolred. Todos los derechos reservados. Diseñado con pasión por el fútbol.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menú hamburguesa interactivo para pantallas pequeñas
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Manejo del formulario de suscripción
+        function handleSubscribe(event) {
+            event.preventDefault();
+            const input = event.target.querySelector('input[type="email"]');
+            
+            // Creamos un mensaje interactivo estético en lugar de alert()
+            const newsletterBox = document.querySelector('.newsletter-box');
+            newsletterBox.innerHTML = `
+                <div style="color: var(--accent-green); font-size: 2.5rem; margin-bottom: 0.5rem;">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="newsletter-title">¡Suscripción Exitosa!</h3>
+                <p class="newsletter-desc">Gracias por unirte. Hemos enviado una confirmación a <strong>${input.value}</strong>.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
